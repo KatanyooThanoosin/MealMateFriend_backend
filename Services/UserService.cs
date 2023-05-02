@@ -38,7 +38,9 @@ namespace main_backend.Services{
             var hashPassword = string.Join("", MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(login.Password)).Select(s=>s.ToString("x2")));
             return await _userCollection.Find(x => x.Username == login.Username && x.Password == hashPassword).FirstOrDefaultAsync();
         }
-            
+
+        public async Task<UserModel> GetUserByIdAsync(string id)=>
+            await _userCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
     }
 }
 

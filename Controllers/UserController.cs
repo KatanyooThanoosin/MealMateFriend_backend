@@ -25,6 +25,16 @@ namespace MongoExample.Controllers
             return await _userService.GetAllUserAsync();
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("GetUserById")]
+        public async Task<UserModel> GetUserById(){
+            string userId = Request.HttpContext.User.FindFirstValue("UserId");
+            var user = await _userService.GetUserByIdAsync(userId);
+            user.Password = "";
+            return user;
+        }
+
         [HttpPost]
         [Route("Register")]
         public async Task<IActionResult> Register(NewUserModel newUser){
