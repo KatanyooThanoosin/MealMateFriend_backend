@@ -1,6 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 using main_backend.Models;
 using main_backend.Services;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MongoExample.Controllers
 {
@@ -31,7 +37,7 @@ namespace MongoExample.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login(LoginModel loginUser){
             var user = await _userService.LoginAsync(loginUser);
@@ -39,7 +45,22 @@ namespace MongoExample.Controllers
                 return NotFound();
             }
             else{
-                return Ok();
+                var claims = new[] {
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                    new Claim("UserId", user.Id.ToString()),
+                };
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWT_KEY_SECURE_123"));
+                var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                var token = new JwtSecurityToken(
+                    "test",
+                    "test",
+                    claims,
+                    expires: DateTime.UtcNow.AddMinutes(3600),
+                    signingCredentials: signIn);
+
+                return Ok(new JwtSecurityTokenHandler().WriteToken(token));
             }
         }
     }

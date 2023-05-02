@@ -38,3 +38,16 @@ C:\Users\Jupz\Desktop\mmf\main-backend\obj\Debug\net6.0\refint\main-backend.dll
 C:\Users\Jupz\Desktop\mmf\main-backend\obj\Debug\net6.0\main-backend.pdb
 C:\Users\Jupz\Desktop\mmf\main-backend\obj\Debug\net6.0\main-backend.genruntimeconfig.cache
 C:\Users\Jupz\Desktop\mmf\main-backend\obj\Debug\net6.0\ref\main-backend.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\System.Web.Cors.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\System.Web.Http.Cors.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Jupz\Desktop\mmf\main-backend\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
