@@ -2,8 +2,8 @@ namespace main_backend.Models{
     public class NewPostModel{
         public decimal Limit { get; set; }
 
-        public string Hour { get; set; } = null!;
+        public decimal Hour { get; set; } 
 
-        public string Minute { get; set; } = null!;
+        public decimal Minute { get; set; }
     }
 }

@@ -25,6 +25,27 @@ namespace main_backend.Controllers
 
         [Authorize]
         [HttpGet]
+        [Route("ListOrderByUserId")]
+        public async Task<List<FarkSueModel>> ListOrderByUserId(){
+            string userId = Request.HttpContext.User.FindFirstValue("UserId");
+            var orders = await _orderService.ListOrdersByUserId(userId);
+            var farkSue = new List<FarkSueModel>();
+            foreach (var order in orders){
+                var user = await _userService.GetUserByIdAsync(userId);
+                farkSue.Add(new FarkSueModel{
+                    OrderStatus = order.Status,
+                    Username = user.Username,
+                    Phone = user.Phone,
+                    FoodName = order.Foodname,
+                    Note = order.Note
+                });
+            }
+            farkSue.Reverse();
+            return farkSue;
+        }
+
+        [Authorize]
+        [HttpGet]
         [Route("GetOrdersByMyPost")]
         public async Task<List<RubFarkModel>> GetOrdersByMyPost(){
             string userId = Request.HttpContext.User.FindFirstValue("UserId");
@@ -41,6 +62,7 @@ namespace main_backend.Controllers
                     Note = order.Note
                 });
             };
+            rubFark.Reverse(); 
             return rubFark;
         }
 

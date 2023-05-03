@@ -16,8 +16,11 @@ namespace main_backend.Services{
         }
 
         public async Task<List<OrderModel>> ListOrdersByPostId(string postId)=>
-         await _orderCollection.Find(x=> x.PostId == postId).ToListAsync();
+            await _orderCollection.Find(x=> x.PostId == postId && (x.Status =="waiting"|| x.Status == "accept")).ToListAsync();
 
+        public async Task<List<OrderModel>> ListOrdersByUserId(string userId)=>
+            await _orderCollection.Find(x=> x.Owner == userId && (x.Status =="waiting"|| x.Status == "accept")).ToListAsync();
+        
         public async Task CreateOrderAsync(NewOrderModel newOrder,string owner){
             var order = new OrderModel{
                 Owner = owner,

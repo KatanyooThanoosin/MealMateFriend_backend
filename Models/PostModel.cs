@@ -14,9 +14,9 @@ namespace main_backend.Models{
 
         public decimal Limit { get; set; }
 
-        public string Hour { get; set; } = null!;
+        public decimal Hour { get; set; }
 
-        public string Minute { get; set; } = null!;
+        public decimal Minute { get; set; }
 
         public string Status { get; set; } = null!;
 
