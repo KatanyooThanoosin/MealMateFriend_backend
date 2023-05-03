@@ -24,6 +24,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<PostService>();
 
 // Add services to the container.
 

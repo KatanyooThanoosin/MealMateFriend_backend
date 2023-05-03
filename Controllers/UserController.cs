@@ -8,7 +8,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
 
-namespace MongoExample.Controllers
+namespace main_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

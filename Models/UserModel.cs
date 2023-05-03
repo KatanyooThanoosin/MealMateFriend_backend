@@ -9,5 +9,6 @@ namespace main_backend.Models{
         public string Username { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string Phone { get; set; } = null!;
+        public int ProfileImgIndex { get; set; } = 0;
     }
 }

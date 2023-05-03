@@ -20,12 +20,15 @@ namespace main_backend.Services{
 
         public async Task CreateUserAsync(NewUserModel newUser){
             var _user = await _userCollection.Find(x => x.Username == newUser.Username).FirstOrDefaultAsync();
+            Random rnd = new Random();
+            int index  = rnd.Next(0, 8);
             if(_user == null){
                 var hashPassword = string.Join("", MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(newUser.Password)).Select(s => s.ToString("x2")));
                 var user = new UserModel{
                     Username = newUser.Username,
                     Password = hashPassword,
-                    Phone = newUser.Phone
+                    Phone = newUser.Phone,
+                    ProfileImgIndex = index
                 };
                 await _userCollection.InsertOneAsync(user);
             }
