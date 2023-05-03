@@ -15,6 +15,9 @@ namespace main_backend.Services{
             _orderCollection = database.GetCollection<OrderModel>(mongoDBSettings.Value.OrdersCollectionName);
         }
 
+        public async Task<List<OrderModel>> ListOrdersByPostId(string postId)=>
+         await _orderCollection.Find(x=> x.PostId == postId).ToListAsync();
+
         public async Task CreateOrderAsync(NewOrderModel newOrder,string owner){
             var order = new OrderModel{
                 Owner = owner,

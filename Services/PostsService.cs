@@ -18,6 +18,9 @@ namespace main_backend.Services{
         public async Task<List<PostModel>> ListAllPostsAsync(string owner)=>
             await _postCollection.Find(x => x.Owner != owner && x.Status == "unfinish").ToListAsync();
 
+        public async Task<PostModel> GetPostByUserIdAsync(string userId) =>
+            await _postCollection.Find(x => x.Owner == userId && x.Status == "unfinish").FirstOrDefaultAsync();
+
         public async Task CreatePostAsync(string userId,NewPostModel newPost){
             Random rnd = new Random();
             int index  = rnd.Next(0, 18);

@@ -14,9 +14,34 @@ namespace main_backend.Controllers
     [Route("api/[controller]")]
     public class OrderController : Controller{
         private readonly OrderService _orderService;
+        private readonly PostService _postService;
+        private readonly UserService _userService;
 
-        public OrderController(OrderService orderService){
+        public OrderController(OrderService orderService,PostService postService,UserService userService){
             _orderService = orderService;
+            _postService = postService;
+            _userService = userService;
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("GetOrdersByMyPost")]
+        public async Task<List<RubFarkModel>> GetOrdersByMyPost(){
+            string userId = Request.HttpContext.User.FindFirstValue("UserId");
+            var post = await _postService.GetPostByUserIdAsync(userId);
+            var orders = await _orderService.ListOrdersByPostId(post.Id);
+            var rubFark = new List<RubFarkModel>();
+            foreach(var order in orders){
+                var user = await _userService.GetUserByIdAsync(order.Owner);
+                rubFark.Add(new RubFarkModel { 
+                    OrderStatus = order.Status,
+                    Username = user.Username,
+                    Phone = user.Phone,
+                    FoodName = order.Foodname,
+                    Note = order.Note
+                });
+            };
+            return rubFark;
         }
 
         [Authorize]
