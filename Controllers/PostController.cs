@@ -26,7 +26,12 @@ namespace main_backend.Controllers
         [Route("ListAllPosts")]
         public async Task<List<PostModel>> ListAllPosts(){
             string userId = Request.HttpContext.User.FindFirstValue("UserId");
-            return await _postService.ListAllPostsAsync(userId);
+            var posts = await _postService.ListAllPostsAsync(userId);
+            foreach (var post in posts){
+                var owner = await _userService.GetUserByIdAsync(post.Owner);
+                post.OwnerUserName = owner.Username;
+            }
+            return posts;
         }
 
         [Authorize]
@@ -35,8 +40,7 @@ namespace main_backend.Controllers
         public async Task<IActionResult> CreatePost(NewPostModel newPost){
             try{
                 string userId = Request.HttpContext.User.FindFirstValue("UserId");
-                var user = await _userService.GetUserByIdAsync(userId);
-                await _postService.CreatePostAsync(userId,user.Username,newPost);
+                await _postService.CreatePostAsync(userId,newPost);
                 return Ok();
             }
             catch{

@@ -18,14 +18,15 @@ namespace main_backend.Services{
         public async Task<List<PostModel>> ListAllPostsAsync(string owner)=>
             await _postCollection.Find(x => x.Owner != owner && x.Status == "unfinish").ToListAsync();
 
-        public async Task CreatePostAsync(string userId,string username,NewPostModel newPost){
+        public async Task CreatePostAsync(string userId,NewPostModel newPost){
             Random rnd = new Random();
             int index  = rnd.Next(0, 18);
             var post = new PostModel{
                 Owner = userId,
-                OwnerUserName = username,
+                OwnerUserName = "username",
                 Limit = newPost.Limit,
-                Time = newPost.Time,
+                Hour = newPost.Hour,
+                Minute = newPost.Minute,
                 Status = "unfinish",
                 ImgIndex = index,
                 ImgOrderIndexList = new List<int>{}
