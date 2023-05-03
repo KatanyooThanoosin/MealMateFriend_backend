@@ -50,6 +50,10 @@ namespace main_backend.Controllers
         public async Task<List<RubFarkModel>> GetOrdersByMyPost(){
             string userId = Request.HttpContext.User.FindFirstValue("UserId");
             var post = await _postService.GetPostByUserIdAsync(userId);
+            if(post==null){
+                var nullFark =  new List<RubFarkModel>();
+                return nullFark;
+            }
             var orders = await _orderService.ListOrdersByPostId(post.Id);
             var rubFark = new List<RubFarkModel>();
             foreach(var order in orders){
