@@ -73,6 +73,10 @@ namespace main_backend.Controllers
             try{
                 string userId = Request.HttpContext.User.FindFirstValue("UserId");
                 await _orderService.CreateOrderAsync(newOrder,userId);
+                var post = await _postService.GetPostByIdAsync(newOrder.PostId);
+                var user = await _userService.GetUserByIdAsync(userId);
+                post.ImgOrderIndexList.Add(user.ProfileImgIndex);
+                await _postService.UpdatePostAsync(post.Id,post);
                 return Ok();
             }
             catch{

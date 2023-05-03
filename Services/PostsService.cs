@@ -21,6 +21,9 @@ namespace main_backend.Services{
         public async Task<PostModel> GetPostByUserIdAsync(string userId) =>
             await _postCollection.Find(x => x.Owner == userId && x.Status == "unfinish").FirstOrDefaultAsync();
 
+        public async Task<PostModel> GetPostByIdAsync(string id) =>
+            await _postCollection.Find(x => x.Id == id && x.Status == "unfinish").FirstOrDefaultAsync();
+
         public async Task CreatePostAsync(string userId,NewPostModel newPost){
             Random rnd = new Random();
             int index  = rnd.Next(0, 18);
@@ -37,5 +40,8 @@ namespace main_backend.Services{
             await _postCollection.InsertOneAsync(post);
         }
 
+        public async Task UpdatePostAsync(string id,PostModel post)=>
+            await _postCollection.ReplaceOneAsync(x=>x.Id == id,post);
+         
     }
 }
