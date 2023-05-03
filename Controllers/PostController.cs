@@ -14,9 +14,11 @@ namespace main_backend.Controllers
     [Route("api/[controller]")]
     public class PostController : Controller{
         private readonly PostService _postService;
+        private readonly UserService _userService;
 
-        public PostController(PostService postService){
+        public PostController(PostService postService,UserService userService){
             _postService = postService;
+            _userService = userService;
         }
 
         [Authorize]
@@ -33,7 +35,8 @@ namespace main_backend.Controllers
         public async Task<IActionResult> CreatePost(NewPostModel newPost){
             try{
                 string userId = Request.HttpContext.User.FindFirstValue("UserId");
-                await _postService.CreatePostAsync(userId,newPost);
+                var user = await _userService.GetUserByIdAsync(userId);
+                await _postService.CreatePostAsync(userId,user.Username,newPost);
                 return Ok();
             }
             catch{

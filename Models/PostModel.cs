@@ -10,6 +10,8 @@ namespace main_backend.Models{
 
         public string Owner { get; set; } = null!;
 
+        public string OwnerUserName { get; set; } = null!;
+
         public decimal Limit { get; set; }
 
         public decimal Time { get; set; }
