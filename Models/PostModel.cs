@@ -14,6 +14,8 @@ namespace main_backend.Models{
 
         public decimal Limit { get; set; }
 
+        public decimal Count { get; set; } = 0;
+
         public decimal Hour { get; set; }
 
         public decimal Minute { get; set; }

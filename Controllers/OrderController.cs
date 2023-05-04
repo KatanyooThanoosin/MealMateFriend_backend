@@ -31,7 +31,8 @@ namespace main_backend.Controllers
             var orders = await _orderService.ListOrdersByUserId(userId);
             var farkSue = new List<FarkSueModel>();
             foreach (var order in orders){
-                var user = await _userService.GetUserByIdAsync(userId);
+                var post = await _postService.GetPostByIdAsync(order.PostId);
+                var user = await _userService.GetUserByIdAsync(post.Owner);
                 farkSue.Add(new FarkSueModel{
                     OrderStatus = order.Status,
                     Username = user.Username,
