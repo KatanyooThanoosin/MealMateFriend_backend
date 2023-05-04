@@ -58,5 +58,21 @@ namespace main_backend.Controllers
             
         }
 
+        [Authorize]
+        [HttpPost]
+        [Route("FinishPost")]
+        public async Task<IActionResult> FinishPost(string postId){
+            var post = await _postService.GetPostByIdAsync(postId);
+            if(post==null){return NotFound();}
+            post.Status="finish";
+            var orders = await _orderService.ListWaitingOrderByPostIdAsync(postId);
+            foreach(var order in orders){
+                order.Status = "reject";
+                await _orderService.UpdateOrderAsync(order);
+            }
+            await _postService.UpdatePostAsync(postId,post);
+            return Ok();
+        }
+
     } 
 }

@@ -88,5 +88,27 @@ namespace main_backend.Controllers
                 return BadRequest();
             }
         }
+
+        [Authorize]
+        [HttpPost]
+        [Route("AcceptOrder")]
+        public async Task<IActionResult> AcceptOrder(string orderId){
+            var order = await _orderService.GetOrderByIdAsync(orderId);
+            if (order == null){return NotFound();}
+            order.Status = "accept";
+            await _orderService.UpdateOrderAsync(order);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("CompleteOrder")]
+        public async Task<IActionResult> CompleteOrder(string orderId){
+            var order = await _orderService.GetOrderByIdAsync(orderId);
+            if (order == null){return NotFound();}
+            order.Status = "complete";
+            await _orderService.UpdateOrderAsync(order);
+            return Ok();
+        }
     }
 }
